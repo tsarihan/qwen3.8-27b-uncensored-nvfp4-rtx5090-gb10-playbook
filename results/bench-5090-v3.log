@@ -1,0 +1,88 @@
+=== waiting for transfer ===
+22G	$HOME/models/Qwen3.8-27B-Uncensored-JC-NVFP4-v3
+
+=========== A-nomtp-8192 : mtp=off batched=8192  19:05:26 ===========
+booted ctx=98304 in ~230s
+  (EngineCore pid=172) INFO 09-16 02:06:16 [__init__.py:1077] Using FlashInferCutlassNvFp4LinearKernel for NVFP4 GEMM
+  correctness (391): 391
+}
+
+  conc | ok | TTFT p50 | per-stream tok/s | aggregate tok/s
+  -----+----+----------+------------------+----------------
+     1 |  1 |     0.07 |            61.34 |          60.96
+     2 |  2 |     0.15 |            55.71 |         109.68
+     4 |  4 |     0.27 |            54.86 |         213.65
+     8 |  8 |     0.35 |            56.31 |         434.67
+    16 | 16 |     0.45 |            52.98 |         811.80
+    32 | 32 |     0.30 |            52.92 |         826.52
+    64 | 64 |    10.01 |            52.77 |         826.73
+  --- prefill probe ---
+target prompt_tok    ttft_s  prefill_t/s decode_t/s
+4096         4096      0.65       6344.6      61.46
+16384       16384      1.62      10089.5      60.50
+65536       65536     10.01       6548.4      57.87
+PROBE_DONE A-nomtp-8192
+  acceptance: n/a (MTP off)
+  stopped (kept)
+
+=========== B-k3-8192 : mtp=3 batched=8192  19:11:44 ===========
+booted ctx=98304 in ~230s
+  (EngineCore pid=172) INFO 09-16 02:12:19 [__init__.py:1077] Using FlashInferCutlassNvFp4LinearKernel for NVFP4 GEMM
+  correctness (391): 391
+}
+
+  conc | ok | TTFT p50 | per-stream tok/s | aggregate tok/s
+  -----+----+----------+------------------+----------------
+     1 |  1 |     0.10 |            80.71 |          79.56
+     2 |  2 |     0.31 |            77.61 |         145.00
+     4 |  4 |     1.43 |            71.80 |         230.28
+     8 |  8 |     0.25 |            71.50 |         307.52
+    16 | 16 |     7.23 |            68.64 |         378.51
+    32 | 32 |    15.34 |            68.30 |         426.02
+    64 | 64 |    23.32 |            66.38 |         430.25
+  --- prefill probe ---
+target prompt_tok    ttft_s  prefill_t/s decode_t/s
+4096         4096      0.68       5981.8     109.01
+16384       16384      2.13       7707.2      89.90
+65536       65536     10.75       6093.6      90.20
+PROBE_DONE B-k3-8192
+  acceptance: 34.1% (32998/96750)
+  stopped (kept)
+
+=========== C-k3-32768 : mtp=3 batched=32768  19:18:58 ===========
+  failed at ctx=98304
+(EngineCore pid=172)     raise ValueError(
+(EngineCore pid=172) ValueError: No available memory for the cache blocks. Try increasing `gpu_memory_utilization` when initializing the engine (this flag also controls CPU memory reservation on the CPU backend, despite its name). See https://docs.vllm.ai/en/latest/configuration/conserving_memory/ for more details.
+  failed at ctx=65536
+(EngineCore pid=172)     raise ValueError(
+(EngineCore pid=172) ValueError: No available memory for the cache blocks. Try increasing `gpu_memory_utilization` when initializing the engine (this flag also controls CPU memory reservation on the CPU backend, despite its name). See https://docs.vllm.ai/en/latest/configuration/conserving_memory/ for more details.
+  GAVE UP
+
+=========== D-k3-16384 : mtp=3 batched=16384  19:25:32 ===========
+  failed at ctx=98304
+(EngineCore pid=172)     raise ValueError(
+(EngineCore pid=172) ValueError: To serve at least one request with the model's max seq len (98304), (3.99 GiB KV cache is needed, which is larger than the available KV cache memory (3.78 GiB). Based on the available memory, the estimated maximum model length is 91200. Try increasing `gpu_memory_utilization` (which also controls CPU memory on the CPU backend) or decreasing `max_model_len` when initializing the engine. See https://docs.vllm.ai/en/latest/configuration/conserving_memory/ for more details.
+booted ctx=65536 in ~320s
+  (EngineCore pid=172) INFO 09-16 02:29:15 [__init__.py:1077] Using FlashInferCutlassNvFp4LinearKernel for NVFP4 GEMM
+  correctness (391): 391
+}
+
+  conc | ok | TTFT p50 | per-stream tok/s | aggregate tok/s
+  -----+----+----------+------------------+----------------
+     1 |  1 |     0.11 |            77.31 |          76.20
+     2 |  2 |     0.31 |            75.67 |         143.65
+     4 |  4 |     1.44 |            69.59 |         225.50
+     8 |  8 |     0.23 |            75.54 |         292.15
+    16 | 16 |     8.10 |            70.71 |         291.50
+    32 | 32 |    22.30 |            69.98 |         318.15
+    64 | 64 |    30.33 |            71.44 |         344.04
+  --- prefill probe ---
+target prompt_tok    ttft_s  prefill_t/s decode_t/s
+4096         4096      0.55       7433.4      81.26
+16384       16384      6.92       2367.8      44.65
+65536       65536  ERROR HTTPError: HTTP Error 400: Bad Request
+PROBE_DONE D-k3-16384
+  acceptance: 34.1% (33006/96759)
+  stopped (kept)
+
+=== DONE 19:37:50 ===

@@ -1,0 +1,41 @@
+This repository contains original scripts, measurements and documentation.
+
+It does NOT redistribute any upstream source and does NOT contain model weights.
+`patches/fix_transformers_weightmap.py` is an original script that edits a local copy of a
+transformers file to correct an upstream bug; the transformers source itself is not
+included here.
+
+Upstream projects referenced:
+  vLLM                              Apache-2.0   https://github.com/vllm-project/vllm
+  llm-compressor                    Apache-2.0   https://github.com/vllm-project/llm-compressor
+  compressed-tensors                Apache-2.0   https://github.com/neuralmagic/compressed-tensors
+  transformers                      Apache-2.0   https://github.com/huggingface/transformers
+  Qwen3.8-27B                       Apache-2.0   see model card on HuggingFace (Qwen)
+  Qwen3.8-27B-Uncensored            Apache-2.0   see model card on HuggingFace
+                                    (JonathanColetti); abliterated with Heretic
+                                    (https://github.com/p-e-w/heretic), then published as
+                                    bf16 and GGUF
+  wikitext-2-raw-v1                 CC BY-SA 3.0 Salesforce/wikitext, used as calibration
+                                    and perplexity corpus only
+
+The quantization recipe in `scripts/quantize_v3.py` reproduces the structure of the
+quantization_config published in an existing NVFP4 build of Qwen3.8-27B. Configuration
+values are facts about a published artifact, not copied source.
+
+The referenced checkpoint is an abliterated (refusal-removed) model. This repository
+documents quantization, serving configuration and performance/accuracy measurement only.
+It is published to support authorized security testing, red-team evaluation and
+refusal-mechanism research in isolated environments, and contains no harmful content,
+jailbreak material, or capability demonstrations. Anyone deploying such a checkpoint is
+responsible for providing independent safety and moderation layers; the upstream card
+states that refusal behaviour is substantially reduced, not eliminated.
+
+No retraining, fine-tuning, GPTQ or AWQ was performed. Weights are converted by
+round-to-nearest into the FP4/FP8 grids. Calibration consists of forward passes only and
+never modifies a weight; it exists solely to observe activation ranges for the FP4
+activation global scales and the static FP8 KV-cache scales, neither of which can be
+derived from weights.
+
+Benchmark numbers were measured on the author's own hardware and are reported as measured,
+including the runs that failed, the hypotheses that turned out to be wrong, and the build
+that passed needle-retrieval while being 6% worse in perplexity.

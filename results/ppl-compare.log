@@ -1,0 +1,49 @@
+stopped jc-v3-k3-185629
+
+=========== bf16  03:38:35 ===========
+  booted in ~150s
+built 24 chunks of 2048 tokens
+   6/24 chunks  running ppl=6.3887
+  12/24 chunks  running ppl=6.3270
+  18/24 chunks  running ppl=6.8907
+  24/24 chunks  running ppl=6.8387
+
+bf16                         tokens=49128  mean_logprob=-1.922602  PPL=6.8387
+PPL_RESULT bf16 6.8387 49128
+  stopped (kept)
+
+=========== A16-v2  03:42:10 ===========
+  booted in ~150s
+  (EngineCore pid=172) INFO 09-16 10:42:41 [__init__.py:929] Using MarlinNvFp4LinearKernel for NVFP4 GEMM
+reusing 24 cached chunks
+   6/24 chunks  running ppl=6.8554
+  12/24 chunks  running ppl=6.6267
+  18/24 chunks  running ppl=7.2818
+  24/24 chunks  running ppl=7.2574
+
+A16-v2                       tokens=49128  mean_logprob=-1.982025  PPL=7.2574
+PPL_RESULT A16-v2 7.2574 49128
+  stopped (kept)
+
+=========== v3-W4A4  03:45:54 ===========
+  booted in ~150s
+  (EngineCore pid=174) INFO 09-16 10:46:24 [__init__.py:974] Using FlashInferCutlassNvFp4LinearKernel for NVFP4 GEMM
+reusing 24 cached chunks
+   6/24 chunks  running ppl=6.5650
+  12/24 chunks  running ppl=6.3916
+  18/24 chunks  running ppl=6.9706
+  24/24 chunks  running ppl=6.9261
+
+v3-W4A4                      tokens=49128  mean_logprob=-1.935302  PPL=6.9261
+PPL_RESULT v3-W4A4 6.9261 49128
+  stopped (kept)
+
+=== SUMMARY ===
+PPL_RESULT bf16 6.8387 49128
+PPL_RESULT A16-v2 7.2574 49128
+PPL_RESULT v3-W4A4 6.9261 49128
+
+model               PPL      vs bf16     tokens
+bf16             6.8387     baseline      49128
+A16-v2           7.2574 +0.4187 (+6.12%)      49128
+v3-W4A4          6.9261 +0.0874 (+1.28%)      49128
