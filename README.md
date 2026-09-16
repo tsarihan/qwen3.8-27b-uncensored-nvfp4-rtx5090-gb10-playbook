@@ -107,9 +107,30 @@ Verified match at tensor level, not just the config header:
 | ignore entries | 303 | **303** |
 | total | ~23.4 GB | **23.42 GB** |
 
+## Retrieval and vision
+
+Measured on **this** checkpoint (GB10, ctx 262144, no speculation):
+
+| target | prompt tokens | TTFT | prefill tok/s | decode tok/s | needles |
+|---|---|---|---|---|---|
+| 4,096 | 4,315 | 1.76 s | 2,449.9 | 11.23 | **5/5** |
+| 32,768 | 33,370 | 15.94 s | 2,093.3 | 10.75 | **5/5** |
+| 131,072 | 132,970 | 109.49 s | 1,214.4 | 9.34 | **5/5** |
+| 245,000 | 248,416 | 305.53 s | 813.1 | 8.12 | **5/5** |
+
+**20/20 needles at every depth, max context 248,416.** Vision **3/3** — printed digits,
+shape counting, and relative magnitude in a bar chart.
+
+Prefill is 1.3-2.6× faster than the weight-only build on the same hardware (2,450 vs 950
+tok/s at 4K; 813 vs 618 at 248K), which is the native FP4 kernel rather than Marlin.
+
+The weight-only build also scored 20/20 here, and 2/3 on vision. Which is the point of the
+next section.
+
 ## NIAH cannot detect this
 
-The 6%-worse A16 build scored **20/20 needles at every depth out to 248,419 tokens**.
+The 6%-worse A16 build scored **20/20 needles at every depth out to 248,419 tokens** —
+the same score this checkpoint gets, while being 6% worse in perplexity.
 Needle retrieval is insensitive to this damage class. If you validate a quantization on
 NIAH alone you will ship a materially degraded checkpoint and call it verified.
 

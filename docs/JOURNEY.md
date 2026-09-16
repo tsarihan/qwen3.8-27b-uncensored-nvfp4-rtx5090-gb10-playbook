@@ -158,6 +158,10 @@ acceptance. Measure depth on the hardware you will serve on.
 
 ## 9. Known gaps
 
+* **Retrieval and vision were re-measured on the final checkpoint** (20/20 needles to
+  248,416 tokens, vision 3/3) rather than carried over from the weight-only build. Worth
+  stating because the weight-only build scored 20/20 too — a quality number is only
+  meaningful next to the artifact it was measured on.
 * **No SWE-bench Pro run on this checkpoint.** The 85.0% figure in our other playbook is a
   *different* abliteration (orcarouter's) on a different quantization.
 * **No non-abliterated control.** Until base `Qwen3.8-27B` is converted with this exact
