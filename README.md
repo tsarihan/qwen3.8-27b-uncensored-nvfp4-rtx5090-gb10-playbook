@@ -327,6 +327,12 @@ results/                          raw ladders, prefill probes, PPL comparison
 docs/JOURNEY.md                   what failed, in order, and why
 ```
 
+## Published
+
+* **Weights** — https://huggingface.co/tomsarihan/Qwen3.8-27B-Uncensored-NVFP4
+  (public, gated: downloading requires accepting the risk acknowledgement)
+* **This playbook** — recipe, scripts, raw results and the failures along the way
+
 ## License
 
 Apache-2.0, matching the upstream `JonathanColetti/Qwen3.8-27B-Uncensored` and
