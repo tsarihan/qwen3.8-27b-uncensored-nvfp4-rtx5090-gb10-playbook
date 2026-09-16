@@ -17,6 +17,11 @@ simultaneously **more accurate and faster** than the "safer" weight-only build.
 
 ## Scope and intended use
 
+> **By cloning or using this repository you agree to [`ACCEPTABLE_USE.md`](ACCEPTABLE_USE.md).**
+> Authorized research and testing in isolated environments only. GitHub cannot require
+> acceptance before download; the model weights themselves **are** gated and do require it.
+
+
 This is an **abliterated** (refusal-removed) checkpoint. Per the upstream author's own
 measurements, refusal drops from 98/100 to 12/100 prompts, and the card states refusal
 behaviour is "substantially reduced, not eliminated."
